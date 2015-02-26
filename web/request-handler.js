@@ -2,7 +2,15 @@ var path = require('path');
 var archive = require('../helpers/archive-helpers');
 var utils = require('./http-helpers');
 var urlParser = require('url');
+var fetcher = require('../workers/htmlfetcher.js');
 
+setTimeout(function(){ fetcher.getUrls(); }, 50);
+
+setTimeout(function(){ fetcher.diffUrlsArchive(); }, 500);
+
+setInterval(function(){ fetcher.getUrls(); }, 10000);
+
+setInterval(function(){ fetcher.diffUrlsArchive(); }, 10050);
 
 var actions = {
   'GET': function(request, response){
@@ -23,16 +31,16 @@ var actions = {
             if(archived){
               // redirect to the archived page
               console.log('archived!')
-              utils.serveAssets(response, ('/' + url))
+              utils.sendRedirect(response, ('/' + url))
             // if not
             } else {
               //redirect to loading.html
-              utils.serveAssets(response, '/loading.html');              
+              utils.sendRedirect(response, '/loading.html');              
             }
           })
         } else {
           archive.addUrlToList(url, function(status){
-            utils.serveAssets(response, '/loading.html', function(){}, status)
+            utils.sendRedirect(response, '/loading.html');
           })
         }
       })    

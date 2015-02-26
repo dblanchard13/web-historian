@@ -28,8 +28,6 @@ exports.initialize = function(pathsObj){
 exports.readListOfUrls = function(callback){
   fs.readFile(exports.paths.list, 'utf8', function(err, sites){
     sites = sites.toString().split('\n');
-    console.log(sites)
-    // var sats = sites.split('\n')
     if(callback){
       callback(sites)
     }
@@ -56,9 +54,9 @@ exports.addUrlToList = function(url, callback){
 
 exports.isURLArchived = function(url, callback){
   fs.readdir(exports.paths.archivedSites, function(err, files){
-    files.forEach(function(file){
       var archived = false;
-      console.log('url' + url)
+      console.log('url - ' + url)
+    files.forEach(function(file){
       if(url === file){
         archived = true
       }

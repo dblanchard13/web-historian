@@ -30,6 +30,11 @@ exports.send404 = function(response){
   exports.sendResponse(response, '404: Page not found', 404);
 };
 
+exports.sendRedirect = function(response, location, status){
+  status = status || 302
+  response.writeHead(status, {location: location})
+  response.end();
+}
 
 exports.serveAssets = function(res, asset, callback, status) {
   // Write some code here that helps serve up your static files!
