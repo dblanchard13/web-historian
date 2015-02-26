@@ -27,7 +27,8 @@ exports.initialize = function(pathsObj){
 
 exports.readListOfUrls = function(callback){
   fs.readFile(exports.paths.list, function(err, sites){
-    sites = sites.toString().split('\n');
+    sites = sites.toString();
+    // var sats = sites.split('\n')
     if(callback){
       callback(sites)
     }
@@ -44,6 +45,12 @@ exports.isUrlInList = function(url, callback){
 };
 
 exports.addUrlToList = function(url, callback){
+  fs.writeFile(exports.paths.list, url, function(err, site){
+    if(err){
+    } else {
+      callback('balls')      
+    }
+  })
 };
 
 exports.isURLArchived = function(url, callback){
