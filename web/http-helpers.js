@@ -38,20 +38,53 @@ exports.serveAssets = function(res, asset, callback) {
   // Check public folder
   fs.readFile(archive.paths.siteAssets + asset, encoding, function(err, data){
     if(err){
+      console.log('public error')
       // doesn't exist? check archive folder
       fs.readFile(archive.paths.archivedSites + asset, encoding, function(err, data){
+        console.log('checking archive')
         if(err){
+          console.log('you fucking kidding me')
         // file doesn't exist for us
           callback ? callback() : exports.send404(res);          
+        } else {
+          console.log('in the archives')
+          exports.sendResponse(res, data);
         } 
       });
     } else {
       // it exists! serve that shit
+      console.log('Serve Assets, shits around')
       exports.sendResponse(res, data);
     }
   })
 };
 
+exports.writeAssets = function(res, asset, callback){
+  var encoding = {encoding: 'utf8'}
+
+  fs.writeFile('../archives/sites.txt', asset, function(err, written, string){
+    if(err){ throw Error }
+    console.log('writing');
+  })
+  res.end();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 // As you progress, keep thinking about what helper functions you can put here!
+
+
+
+
+
+

@@ -25,9 +25,7 @@ describe("Node Server Request Listener Function", function() {
 
   it("Should answer GET requests for /", function(done) {
     var req = new stubs.Request("/", "GET");
-
     handler.handleRequest(req, res);
-
     waitForThen(
       function() { return res._ended; },
       function(){
