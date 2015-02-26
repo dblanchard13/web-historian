@@ -27,8 +27,9 @@ var actions = {
             // if not
               //redirect to loading.html
         } else {
-          archive.addUrlToList(url, function(data){
-            console.log(data)
+          archive.addUrlToList(url, function(status){
+            var urlPath = archive.paths.siteAssets + '/loading.html';
+            utils.sendResponse(response, urlPath, status)
           })
         }
       })    
@@ -46,26 +47,3 @@ exports.handleRequest = function (request, response) {
 };
 
 
-
-
-
-
-
- // utils.collectData(request, function(data){
- //      var url;
- //      archive.isUrlInList(url, function(found){
- //        if(found){
- //          archive.isURLArchived(url, function(exists){
- //            if(exists){
-
- //            } else {
-
- //            }
- //          })
- //        } else {
- //          archive.addUrlToList(url, function(){
-
- //          });
- //        }
- //      })
- //    });
