@@ -12,24 +12,29 @@ var actions = {
   },
 
   'POST': function(request, response){
-    // console.log(request)
-    // var parts = urlParser.parse(request.url);
-    // console.log(parts)
-    // var urlPath = parts.pathname === '/' ? '/index.html' : parts.pathname;
     utils.collectData(request, function(data){
       var url = data.slice(4);
       archive.isUrlInList(url, function(found){
         if(found){
           console.log('found')
           //check if page has been loaded
+          archive.isURLArchived(url, function(archived){
             // if so
+            if(archived){
               // redirect to the archived page
+
             // if not
+            } else {
               //redirect to loading.html
+              utils.serveAssets(response, '/loading.html');              
+            }
+          })
         } else {
           archive.addUrlToList(url, function(status){
-            var urlPath = archive.paths.siteAssets + '/loading.html';
-            utils.sendResponse(response, urlPath, status)
+            // var urlPath = archive.paths.siteAssets + '/loading.html';
+            // utils.sendResponse(response, urlPath, status)
+            // needs to respond with a 302 status code
+            utils.serveAssets(response, '/loading.html')
           })
         }
       })    

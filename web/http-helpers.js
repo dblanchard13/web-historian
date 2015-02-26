@@ -1,7 +1,6 @@
 var path = require('path');
 var fs = require('fs');
 var archive = require('../helpers/archive-helpers');
-var Q = require('q');
 
 exports.headers = headers = {
   "access-control-allow-origin": "*",
@@ -64,7 +63,6 @@ exports.writeAssets = function(res, asset, callback){
 
   fs.writeFile('../archives/sites.txt', asset, function(err, written, string){
     if(err){ throw Error }
-    console.log('writing');
   })
   res.end();
 }
@@ -79,9 +77,6 @@ exports.writeAssets = function(res, asset, callback){
 
 
 
-
-
-// As you progress, keep thinking about what helper functions you can put here!
 
 
 
