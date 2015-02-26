@@ -30,7 +30,8 @@ exports.send404 = function(response){
   exports.sendResponse(response, '404: Page not found', 404);
 };
 
-exports.serveAssets = function(res, asset, callback) {
+
+exports.serveAssets = function(res, asset, callback, status) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
   var encoding = {encoding: 'utf8'}
@@ -42,30 +43,23 @@ exports.serveAssets = function(res, asset, callback) {
       fs.readFile(archive.paths.archivedSites + asset, encoding, function(err, data){
         console.log('checking archive')
         if(err){
-          console.log('you fucking kidding me')
+          console.log('err' + err)
         // file doesn't exist for us
           callback ? callback() : exports.send404(res);          
         } else {
           console.log('in the archives')
-          exports.sendResponse(res, data);
+          exports.sendResponse(res, data, status);
         } 
       });
     } else {
       // it exists! serve that shit
       console.log('Serve Assets, shits around')
-      exports.sendResponse(res, data);
+      exports.sendResponse(res, data, status);
     }
   })
 };
 
-exports.writeAssets = function(res, asset, callback){
-  var encoding = {encoding: 'utf8'}
 
-  fs.writeFile('../archives/sites.txt', asset, function(err, written, string){
-    if(err){ throw Error }
-  })
-  res.end();
-}
 
 
 

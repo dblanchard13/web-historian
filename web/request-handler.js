@@ -22,7 +22,8 @@ var actions = {
             // if so
             if(archived){
               // redirect to the archived page
-
+              console.log('archived!')
+              utils.serveAssets(response, ('/' + url))
             // if not
             } else {
               //redirect to loading.html
@@ -31,10 +32,7 @@ var actions = {
           })
         } else {
           archive.addUrlToList(url, function(status){
-            // var urlPath = archive.paths.siteAssets + '/loading.html';
-            // utils.sendResponse(response, urlPath, status)
-            // needs to respond with a 302 status code
-            utils.serveAssets(response, '/loading.html')
+            utils.serveAssets(response, '/loading.html', function(){}, status)
           })
         }
       })    
