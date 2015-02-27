@@ -4,13 +4,6 @@ var utils = require('./http-helpers');
 var urlParser = require('url');
 var fetcher = require('../workers/htmlfetcher.js');
 
-setTimeout(function(){ fetcher.getUrls(); }, 50);
-
-setTimeout(function(){ fetcher.diffUrlsArchive(); }, 500);
-
-setInterval(function(){ fetcher.getUrls(); }, 10000);
-
-setInterval(function(){ fetcher.diffUrlsArchive(); }, 10050);
 
 var actions = {
   'GET': function(request, response){
