@@ -42,23 +42,20 @@ exports.serveAssets = function(res, asset, callback, status) {
   var encoding = {encoding: 'utf8'}
   // Check public folder
   fs.readFile(archive.paths.siteAssets + asset, encoding, function(err, data){
+    // console.log('path - ' + archive.paths.siteAssets+asset)
     if(err){
-      console.log('public error')
       // doesn't exist? check archive folder
       fs.readFile(archive.paths.archivedSites + asset, encoding, function(err, data){
-        console.log('checking archive')
         if(err){
-          console.log('err' + err)
         // file doesn't exist for us
           callback ? callback() : exports.send404(res);          
         } else {
-          console.log('in the archives')
+          // it's in the archive! send that site!
           exports.sendResponse(res, data, status);
         } 
       });
     } else {
       // it exists! serve that shit
-      console.log('Serve Assets, shits around')
       exports.sendResponse(res, data, status);
     }
   })

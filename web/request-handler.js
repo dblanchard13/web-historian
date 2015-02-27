@@ -17,29 +17,31 @@ var actions = {
       var url = data.slice(4);
       archive.isUrlInList(url, function(found){
         if(found){
-          console.log('found')
           //check if page has been loaded
           archive.isURLArchived(url, function(archived){
             // if so
             if(archived){
               // redirect to the archived page
-              console.log('archived!')
               utils.sendRedirect(response, ('/' + url))
             // if not
-            } else {
+            } 
+            else {
               //redirect to loading.html
               utils.sendRedirect(response, '/loading.html');              
             }
           })
-        } else {
+        } 
+        else {
+          // add url to site list so it can be archived later
           archive.addUrlToList(url, function(status){
+            // redirect to loading
             utils.sendRedirect(response, '/loading.html');
           })
         }
       })    
     })
   }
-}
+};
 
 exports.handleRequest = function (request, response) {
   var action = actions[request.method];

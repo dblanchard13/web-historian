@@ -60,8 +60,8 @@ exports.isURLArchived = function(url, callback){
       if(url === file){
         archived = true
       }
-      callback(archived);
     })
+    callback(archived);
   })
 };
 
