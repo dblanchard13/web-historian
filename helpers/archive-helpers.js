@@ -45,6 +45,8 @@ exports.isUrlInList = function(url, callback){
 };
 
 exports.addUrlToList = function(url, callback){
+  // append each new url to sites.txt with a new line call after it
+  // make note of 'appendFile' use as opposed to 'writeFile'
   fs.appendFile(exports.paths.list, (url + '\n'), function(err, site){
     if(err){
     } else {

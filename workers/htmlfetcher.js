@@ -1,30 +1,11 @@
-// eventually, you'll have some code here that uses the code in `archive-helpers.js`
-// to actually download the urls you want to download.
-var archive = require('../helpers/archive-helpers.js');
-// var utils = require('../web/http-helpers.js');
-// var fs = require('fs');
-
-// exports.getUrls = function(){
-//   archive.readListOfUrls(function(sites){
-//     sites.forEach(function(site){
-//           console.log('site - ' + site)
-//       if(!(archive.isURLArchived(site, function(archived){return archived}))){
-//         exports.archiveUrls(site);
-//       }
-//     })
-//   })
-// };
-
-// exports.archiveUrls = function(urlToArchive){
-// // create a new file in the archive/sites 
-//   fs.writeFile((archive.paths.archivedSites + '/' + urlToArchive), urlToArchive, function(err){
-//                                       // name it after the url   // copy in the html data for said url
-//     if(err){
-//       console.log('fucking error - ' + err);
-//     } 
-//   })    
-// };  
+var archive = require('../helpers/archive-helpers.js');  
 
 archive.readListOfUrls(archive.downloadUrls);
-
 console.log('Hello, world')
+
+// Having cron issues, so tried using a set interval to archive urls every minute the server is running.
+// Unfortunately this threw an 'Unhandled stream error in pipe', so archiving everytime the server boots will have to suffice for now.
+  // setInterval(function(){
+  //   archive.readListOfUrls(archive.downloadUrls);
+  //   console.log('Archives Updated');
+  // }, 60000 )

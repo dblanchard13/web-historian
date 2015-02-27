@@ -31,6 +31,7 @@ exports.send404 = function(response){
 };
 
 exports.sendRedirect = function(response, location, status){
+  // takes care of the 'confirm form resubmission' alert that pops up if I just serve a static page
   status = status || 302
   response.writeHead(status, {location: location})
   response.end();
